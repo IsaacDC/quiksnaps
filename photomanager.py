@@ -7,7 +7,7 @@ class photoManager:
         self.classes = []
         self.count = 0
         pygame.init()
-        self.display = pygame.display.set_mode((500,500))
+        self.display = pygame.display.set_mode((1080,1920), pygame.FULLSCREEN)
 
     def run(self):
         aClass  = self.classes[0]

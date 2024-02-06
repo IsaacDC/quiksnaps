@@ -8,23 +8,22 @@ class step1:
         self.count = 0
 
     def run(self, display = None, events = None):
-        '''
-        if display == None:
-            print("No pygame in step 1")
 
-        if events == None:
-            print("No pygame events in step1")
-        '''
+        if display == None:
+            print("No pygame in step 2")
+            pygame.quit()
+
+        img = pygame.image.load("images/idle.png").convert()
+        display.blit(img, (0,0))
+        pygame.display.flip()
+
         for event in events:
             if event.type == pygame.QUIT:
-                print("Why stop now?")
+                pygame.quit()
 
-        if self.count == 10:
-            self.count = 0
-            raise nextClassException("Moving on.")
-
-        #print("count is %s"%(self.count))
-        self.count = self.count + 1
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print("Next!")
+                raise nextClassException("Moving on from Step 1.")
 
     def __str__(self):
         return "Step 1"
