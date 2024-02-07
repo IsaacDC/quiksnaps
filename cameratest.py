@@ -9,6 +9,9 @@ if __name__ == "__main__":
     cam.start()
 
     while True:
+        img = cam.get_image()
+        display.blit(img, (0,0))
+        pygame.display.flip()
 
         for event in events:
             if event.type == pygame.QUIT:
@@ -22,6 +25,10 @@ if __name__ == "__main__":
                     cam.stop()
                     pygame.quit()
                     return
-        img = cam.get_image()
-        display.blit(img, (0,0))
-        pygame.display.flip()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:
+                    pygame.image.save(img, "test.png")
+                    cam.stop()
+                    pygame.quit()
+                    return
