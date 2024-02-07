@@ -21,6 +21,11 @@ class step1:
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    return
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
                 raise nextClassException("Moving on from Step 1.")
