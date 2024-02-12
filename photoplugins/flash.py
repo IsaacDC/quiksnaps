@@ -3,7 +3,7 @@ import pygame
 import time
 
 
-class step2:
+class flash:
 
     def __init__(self):
         #self.display = display
@@ -14,7 +14,7 @@ class step2:
         if display == None:
             print("No pygame in step 2")
             pygame.quit()
-        
+
         display.fill((255,255,255))
         print("Step 2")
         for event in events:
