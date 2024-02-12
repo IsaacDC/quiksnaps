@@ -2,7 +2,7 @@ from .photoExceptions import nextClassException
 import pygame
 import sys
 
-class step1:
+class previewCamera:
 
     def __init__(self):
         self.count = 0
@@ -13,8 +13,10 @@ class step1:
             print("No pygame in step 2")
             pygame.quit()
 
-        img = pygame.image.load("images/idle.png").convert()
-        display.blit(img, (0,0))
+        top = pygame.image.load("images/top.png").convert()
+        bottom = pygame.image.load("images/bottom.png").convert()
+        display.blit(top, (0,0))
+        display.blit(bottom, (0,1704))
         pygame.display.flip()
 
         for event in events:
@@ -29,10 +31,11 @@ class step1:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
-                pygame.event.clear()
-                display.fill((255,255,255))
+                display.fill((0,0,0))
                 pygame.display.flip()
-                raise nextClassException("Moving on from Step 1.")
+                pygame.event.clear()
+
+                raise nextClassException("Moving on from preview.")
 
     def __str__(self):
-        return "Step 1"
+        return "Camera preview step"

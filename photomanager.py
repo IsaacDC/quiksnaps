@@ -2,12 +2,18 @@ import pygame
 from photoplugins.photoExceptions import nextClassException
 
 class photoManager:
+    _instance = None
 
-    def __init__(self):
-        self.classes = []
-        self.count = 0
-        pygame.init()
-        self.display = pygame.display.set_mode((1080,1920), pygame.FULLSCREEN)
+
+    def __new__(self):
+        if self._instance is None:
+            self._instance  = super(photoManager, self).__new__(self)
+            self._instance.classes = []
+            pygame.init()
+            self._instance.display = pygame.display.set_mode((1080,1920), pygame.FULLSCREEN)
+
+        return self._instance
+
 
     def run(self):
         aClass  = self.classes[0]
