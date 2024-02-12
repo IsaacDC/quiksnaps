@@ -6,6 +6,9 @@ class previewCamera:
 
     def __init__(self):
         self.count = 0
+        pygame.camera.init()
+        self.cam = pygame.camera.Camera("/dev/video0")
+        self.cam.start()
 
     def run(self, display = None, events = None):
 
@@ -15,17 +18,22 @@ class previewCamera:
 
         top = pygame.image.load("images/top.png").convert()
         bottom = pygame.image.load("images/bottom.png").convert()
+        camimg = self.cam.get_image()
+
         display.blit(top, (0,0))
         display.blit(bottom, (0,1704))
+        display.blit(camimg, (100,200))
         pygame.display.flip()
 
         for event in events:
             if event.type == pygame.QUIT:
+                self.cam.stop()
                 pygame.quit()
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    self.cam.stop()
                     pygame.quit()
                     sys.exit()
 
@@ -34,6 +42,7 @@ class previewCamera:
                 display.fill((0,0,0))
                 pygame.display.flip()
                 pygame.event.clear()
+                self.cam.stop()
 
                 raise nextClassException("Moving on from preview.")
 
