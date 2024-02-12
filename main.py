@@ -1,6 +1,6 @@
 from photomanager import photoManager
 from photoplugins.step1 import step1
-from photoplugins.step2 import flash
+from photoplugins.flash import flash
 from photoplugins.end import laststep
 
 
@@ -13,5 +13,6 @@ if __name__ == "__main__":
     s3 = laststep()
     p.register(s1)
     p.register(s2)
+    p.register(s3)
     while True:
         p.run()

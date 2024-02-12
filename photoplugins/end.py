@@ -22,14 +22,18 @@ class laststep:
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
-                    return
+                    sys.exit()
 
         time.sleep(10)
-        raise nextClassException("Moving on from Step 1.")
+        display.fill((0,0,0))
+        pygame.display.flip()
+        pygame.event.clear()
+        raise nextClassException("Moving on from the end.")
 
     def __str__(self):
-        return "Step 1"
+        return "Last Step"

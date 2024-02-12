@@ -1,5 +1,6 @@
 from .photoExceptions import nextClassException
 import pygame
+import sys
 
 class step1:
 
@@ -20,14 +21,16 @@ class step1:
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
-                    return
+                    sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
+                pygame.event.clear()
                 raise nextClassException("Moving on from Step 1.")
 
     def __str__(self):

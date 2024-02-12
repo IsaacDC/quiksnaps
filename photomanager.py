@@ -11,7 +11,7 @@ class photoManager:
 
     def run(self):
         aClass  = self.classes[0]
-        #print("Running %s"%(aClass))
+        print("Running %s"%(aClass))
 
         try:
             aClass.run(self.display, pygame.event.get())
