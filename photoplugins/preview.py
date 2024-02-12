@@ -1,5 +1,6 @@
 from .photoExceptions import nextClassException
 import pygame
+import pygame.camera
 import sys
 
 class previewCamera:
@@ -22,7 +23,8 @@ class previewCamera:
 
         display.blit(top, (0,0))
         display.blit(bottom, (0,1704))
-        display.blit(camimg, (100,200))
+        camimg = pygame.transform.scale_by(camimg, 1.5)
+        display.blit(camimg, (70,600))
         pygame.display.flip()
 
         for event in events:
@@ -42,7 +44,7 @@ class previewCamera:
                 display.fill((0,0,0))
                 pygame.display.flip()
                 pygame.event.clear()
-                self.cam.stop()
+                
 
                 raise nextClassException("Moving on from preview.")
 
