@@ -19,10 +19,12 @@ class previewCamera:
 
         top = pygame.image.load("images/top.png").convert()
         bottom = pygame.image.load("images/bottom.png").convert()
+        takephoto = pygame.image.load("images/takephoto.png").convert()
         camimg = self.cam.get_image()
 
         display.blit(top, (0,0))
         display.blit(bottom, (0,1704))
+        display.blit(takephoto, (403,1749))
         camimg = pygame.transform.scale_by(camimg, 1.5)
         display.blit(camimg, (70,600))
         pygame.display.flip()
@@ -44,7 +46,7 @@ class previewCamera:
                 display.fill((0,0,0))
                 pygame.display.flip()
                 pygame.event.clear()
-                
+
 
                 raise nextClassException("Moving on from preview.")
 
