@@ -7,7 +7,7 @@ if __name__ == "__main__":
     pygame.init()
     display = pygame.display.set_mode((1080,1920), pygame.FULLSCREEN)
     pygame.camera.init()
-    cam = pygame.camera.Camera("/dev/video0")
+    cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280,720))
     cam.start()
 
     while True:
