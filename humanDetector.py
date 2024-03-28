@@ -2,55 +2,40 @@ import pygame
 import cv2
 import numpy as np
 
-# Initialize Pygame
 pygame.init()
 
-# Set up Pygame display
-width, height = 640, 480
-window = pygame.display.set_mode((width, height))
+img = cv2.imread('isaac.jpg')
 
-# Initialize the webcam (you may need to adjust the index based on your system)
-cap = cv2.VideoCapture(0)
-
-# Load the pre-trained face detection model
+width, height, channels = img.shape
+window = pygame.display.set_mode((height, width))
 
 hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_upperbody.xml')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-while True:
+bodies, _ = hog.detectMultiScale(gray, winStride=(8, 8), padding=(32, 32), scale=1.05)
+
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = np.rot90(img)
+img = pygame.surfarray.make_surface(img)
+window.blit(img, (0, 0))
+
+for (x, y, w, h) in bodies:
+    pygame.draw.rect(window, (0, 255, 0), (x, y, w, h), 2)
+
+pygame.display.update()
+
+running = True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            # Exit loop on window close
-            break
-
-    # Read the webcam feed
-    ret, frame = cap.read()
-
-    if not ret:
-        break
-
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    # Detect faces in the frame
-    pedestrians, _ = hog.detectMultiScale(gray, winStride=(8, 8), padding=(32, 32), scale=1.05)
-
-    for (x, y, w, h) in pedestrians:
-        pygame.draw.rect(window, (0, 255, 0), (x, y, w, h), 2)
-
-    pygame.display.update()
-
-    # Convert the OpenCV frame to Pygame format
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame = np.rot90(frame)
-    frame = pygame.surfarray.make_surface(frame)
-    window.blit(frame, (0, 0))
+            running = False
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_ESCAPE]:
-        break
+        running = False
 
-# Release the webcam and close Pygame
-cap.release()
+    pygame.display.update()
+
 pygame.quit()
